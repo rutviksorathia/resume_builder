@@ -39,6 +39,13 @@ class HomeViewModel extends BaseViewModel {
 
     if (name.isNotEmpty) {
       basicDetails = BasicDetails.fromMap(jsonDecode(name));
+
+      if (basicDetails != null) {
+        fullNameController.text = basicDetails!.name;
+        emailController.text = basicDetails!.email;
+        contactController.text = basicDetails!.phone;
+        addressController.text = basicDetails!.address;
+      }
     }
 
     notifyListeners();
