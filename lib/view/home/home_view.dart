@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:resume_builder/view/home/home_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -54,6 +55,21 @@ class SharedPreferencesDemoState extends State<SharedPreferencesDemo> {
                     hintText: 'Enter your address  name',
                   ),
                 ),
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () =>
+                      model.handleCameraOrGalleryButtonTap(ImageSource.gallery),
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      color: Colors.yellow,
+                    ),
+                  ),
+                ),
                 ElevatedButton(
                   onPressed: () {
                     model.saveData();
@@ -63,6 +79,10 @@ class SharedPreferencesDemoState extends State<SharedPreferencesDemo> {
                 ElevatedButton(
                   onPressed: () => model.handlePromoButtonTap(),
                   child: const Text('View resume template'),
+                ),
+                ElevatedButton(
+                  onPressed: () => model.clearData(),
+                  child: const Text('Clear Data'),
                 ),
               ],
             ),

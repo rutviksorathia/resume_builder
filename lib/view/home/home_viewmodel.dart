@@ -1,7 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:resume_builder/view/resume_template/resume_template_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
@@ -51,9 +55,41 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  Future<void> clearData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    fullNameController.clear();
+    emailController.clear();
+    contactController.clear();
+    addressController.clear();
+
+    basicDetails = null;
+
+    prefs.remove('name');
+    notifyListeners();
+  }
+
   void handlePromoButtonTap() {
     if (basicDetails == null) return;
     Get.to(() => ResumeTemplateView(basicDetails: basicDetails!));
+  }
+
+  Future handleCameraOrGalleryButtonTap(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      print('hello');
+      if (image == null) return;
+      CroppedFile? croppedImage = await ImageCropper().cropImage(
+        sourcePath: image.path,
+        aspectRatio: const CropAspectRatio(ratioX: 8.5, ratioY: 5.5),
+      );
+
+      if (croppedImage == null) return;
+
+      File imageFile = File.fromUri(Uri.file(croppedImage.path));
+    } on PlatformException catch (e) {
+      print('Failed to pick image: ${e.message}');
+    }
   }
 }
 
