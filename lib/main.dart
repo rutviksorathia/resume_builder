@@ -5,7 +5,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
-import 'package:resume_builder/view/home/home_view.dart';
+import 'package:resume_builder/view/demo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'SharedPreferences Demo',
-      home: SharedPreferencesDemo(),
+      home: DemoView(),
     );
   }
 }
