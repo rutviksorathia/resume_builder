@@ -33,20 +33,15 @@ class _DemoViewState extends State<DemoView> {
 
   @override
   Widget build(BuildContext context) {
-    // materialApp with
-    // debugShowCheckedModeBanner false and home
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: Colors.green[400],
-          // appbar with title
           appBar: AppBar(
             title: const Text(
               "Reorderable ListView",
             ),
           ),
-          // This widget creates the
-          // reorderable list of item.
           body: ReorderableListView(
             onReorder: reorderData,
             children: [
